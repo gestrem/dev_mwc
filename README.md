@@ -1,50 +1,50 @@
-# CakePHP
+CakePHP on OpenShift
+====================
 
-[![Latest Stable Version](https://poser.pugx.org/cakephp/cakephp/v/stable.svg)](https://packagist.org/packages/cakephp/cakephp)
-[![License](https://poser.pugx.org/cakephp/cakephp/license.svg)](https://packagist.org/packages/cakephp/cakephp)
-[![Bake Status](https://secure.travis-ci.org/cakephp/cakephp.png?branch=master)](http://travis-ci.org/cakephp/cakephp)
-[![Code consistency](http://squizlabs.github.io/PHP_CodeSniffer/analysis/cakephp/cakephp/grade.svg)](http://squizlabs.github.io/PHP_CodeSniffer/analysis/cakephp/cakephp/)
-
-[![CakePHP](http://cakephp.org/img/cake-logo.png)](http://www.cakephp.org)
-
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC.
-Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
+This git repository helps you get up and running quickly w/ a CakePHP installation
+on OpenShift.  The backend database is MySQL and the database name is the
+same as your application name (using $_ENV['OPENSHIFT_APP_NAME']).  You can call
+your application by whatever name you want (the name of the database will always
+match the application).
 
 
-## Some Handy Links
+Running on OpenShift
+----------------------------
 
-[CakePHP](http://www.cakephp.org) - The rapid development PHP framework
+Create an account at https://www.openshift.com/
 
-[CookBook](http://book.cakephp.org) - THE CakePHP user documentation; start learning here!
+Create a php application with mysql (you can call your application whatever you want)
 
-[API](http://api.cakephp.org) - A reference to CakePHP's classes
+    rhc app create cake php-5.3 mysql-5.1
 
-[Plugins](http://plugins.cakephp.org/) - A repository of extensions to the framework
+Add this upstream CakePHP repo
 
-[The Bakery](http://bakery.cakephp.org) - Tips, tutorials and articles
+    cd cake
+    git remote add upstream -m master git://github.com/openshift/cakephp-example.git
+    git pull -s recursive -X theirs upstream master
+    # note that the git pull above can be used later to pull updates to CakePHP
+    
+Then push the repo upstream
 
-[Community Center](http://community.cakephp.org) - A source for everything community related
+    git push
 
-[Training](http://training.cakephp.org) - Join a live session and get skilled with the framework
+That's it, you can now checkout your application at (default admin account is admin/admin):
 
-[CakeFest](http://cakefest.org) - Don't miss our annual CakePHP conference
-
-[Cake Software Foundation](http://cakefoundation.org) - Promoting development related to CakePHP
-
-
-## Get Support!
-
-[#cakephp](http://webchat.freenode.net/?channels=#cakephp) on irc.freenode.net - Come chat with us, we have cake
-
-[Google Group](https://groups.google.com/group/cake-php) - Community mailing list and forum
-
-[GitHub Issues](https://github.com/cakephp/cakephp/issues) - Got issues? Please tell us!
-
-[Roadmaps](https://github.com/cakephp/cakephp/wiki#roadmaps) - Want to contribute? Get involved!
+    http://cake-$yournamespace.rhcloud.com
 
 
-## Contributing
+NOTES:
 
-[CONTRIBUTING.md](CONTRIBUTING.md) - Quick pointers for contributing to the CakePHP project
+GIT_ROOT/.openshift/action_hooks/deploy:
+    This script is executed with every 'git push'.  Feel free to modify this script
+    to learn how to use it to your advantage.  By default, this script will create
+    the database tables that this example uses.
 
-[CookBook "Contributing" Section (2.x)](http://book.cakephp.org/2.0/en/contributing.html) [(3.0)](http://book.cakephp.org/3.0/en/contributing.html) - Version-specific details about contributing to the project
+    If you need to modify the schema, you could create a file 
+    GIT_ROOT/.openshift/action_hooks/alter.sql and then use
+    GIT_ROOT/.openshift/action_hooks/deploy to execute that script (make sure to
+    back up your application + database w/ 'rhc app snapshot save'first :) )
+
+CakePHP Security:
+    If you're doing more than just 'playing' be sure to edit app/config/core.php
+    and modify Security.salt and Security.cipherSeed.

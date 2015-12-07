@@ -1,0 +1,23 @@
+#!/bin/bash
+# This deploy hook gets executed after dependencies are resolved and the
+# build hook has been run but before the application has been started back
+# up again.  This script gets executed directly, so it could be python, php,
+# ruby, etc.
+
+set -e
+
+if [ "$OPENSHIFT_MYSQL_DB_HOST" ]; then
+    . "$OPENSHIFT_REPO_DIR/.openshift/action_hooks/deploy.mysql"
+elif [ "$OPENSHIFT_POSTGRESQL_DB_HOST" ]; then
+    . "$OPENSHIFT_REPO_DIR/.openshift/action_hooks/deploy.pgsql"
+else
+    echo 1>&2
+    echo "Could not find mysql or pgsql database. Please run one of:" 1>&2
+    echo "rhc cartridge add -a $OPENSHIFT_APP_NAME -c mysql-5.1" 1>&2
+    echo "rhc cartridge add -a $OPENSHIFT_APP_NAME -c postgresql-9.2" 1>&2
+    echo "then make a sample commit (add whitespace somewhere) and re-push" 1>&2
+    echo 1>&2
+
+    exit 5
+fi
+
