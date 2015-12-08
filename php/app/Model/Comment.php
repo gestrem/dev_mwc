@@ -6,5 +6,5 @@
  * Time: 10:37
  */
 class Comment extends AppModel{
-
+    public $belongsTo=array('Vin','Cepage','Origine');
 }

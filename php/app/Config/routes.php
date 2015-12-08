@@ -30,6 +30,26 @@
 
 //Clients
     Router::connect('/clients',array('controller'=> 'clients','action'=>'index'));
+    Router::connect('/client/edit/:id',array('controller'=> 'clients','action'=>'edit'),array('pass' => array('id'),'id' => '[0-9]+'));
+    Router::connect('/client/add',array('controller'=> 'clients','action'=>'add'));
+    Router::connect('/client/:id/disable',array('controller'=> 'clients','action'=>'disable'),array('pass' => array('id'),'id' => '[0-9]+'));
+    Router::connect('/client/:id/delete',array('controller'=> 'clients','action'=>'delete'),array('pass' => array('id'),'id' => '[0-9]+'));
+
+//Cepages
+    Router::connect('/cepages',array('controller'=> 'cepages','action'=>'index'));
+    Router::connect('/cepage/edit/:id',array('controller'=> 'cepages','action'=>'edit'),array('pass' => array('id'),'id' => '[0-9]+'));
+    Router::connect('/cepage/add',array('controller'=> 'cepages','action'=>'add'));
+    Router::connect('/cepage/:id/delete',array('controller'=> 'cepages','action'=>'delete'),array('pass' => array('id'),'id' => '[0-9]+'));
+
+//Origines
+    Router::connect('/origines',array('controller'=> 'origines','action'=>'index'));
+    Router::connect('/origine/edit/:id',array('controller'=> 'origines','action'=>'edit'),array('pass' => array('id'),'id' => '[0-9]+'));
+    Router::connect('/origine/add',array('controller'=> 'origines','action'=>'add'));
+    Router::connect('/origine/:id/delete',array('controller'=> 'origines','action'=>'delete'),array('pass' => array('id'),'id' => '[0-9]+'));
+
+//Prix
+    Router::connect('/prix',array('controller'=> 'prices','action'=>'index'));
+
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */

@@ -8,5 +8,9 @@
 
 class Vin extends AppModel{
     public $belongsTo = array('Price','Cepage','Origine');
-    public $hasOne = 'Comment';
+    public $hasOne = array(
+        'Comment'=>array(
+            'conditions'=> array('not' => array('Comment.id' => null))
+        )
+    );
 }

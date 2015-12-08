@@ -24,7 +24,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
@@ -44,7 +43,12 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		</div>
 		<div id="content">
 
-			<?php echo $this->Session->flash(); ?>
+            <a href="/php/clients">Clients</a>
+            <a href="/php/origines">Origines</a>
+            <a href="/php/cepages">Cepages</a>
+            <a href="/php/prices">Prix</a>
+
+            <?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>

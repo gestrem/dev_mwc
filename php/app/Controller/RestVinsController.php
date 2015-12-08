@@ -13,7 +13,7 @@ class RestVinsController extends RestController{
     public $uses = array('Vin');
 
     public function index() {
-        $vins = $this->Vin->find('all',array('recursive'=>2));
+        $vins = $this->Vin->find('all',array('recursive'=>0));
         $this->set(array(
             'vins' => $vins,
             '_serialize' => array('vins')
