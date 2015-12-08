@@ -12,5 +12,11 @@ class ClientsController extends AppController{
         $this->loadModel('Clients');
         $clients=$this->Clients->find('all');
         $this->set('clients',$clients);
+        var_dump($clients);
+    }
+
+    //fonction pour désactiver un client ou le réactiver
+    public function disable($id) {
+        $this->loadModel('Clients');
     }
 }

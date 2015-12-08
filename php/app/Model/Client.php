@@ -6,6 +6,6 @@
  * Time: 14:03
  */
 
-class Clients extends AppModel{
+class Client extends AppModel{
 
 }

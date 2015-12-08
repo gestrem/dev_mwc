@@ -1,3 +1,5 @@
 <?php
-echo $clients;
+foreach ($clients as $client){
+    echo $client['Clients']['login'];
+}
 ?>

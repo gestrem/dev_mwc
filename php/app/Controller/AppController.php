@@ -21,6 +21,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
+App::build(array('Controller' => array('php/app/Controller/Rest/RestVinsController')));
 
 /**
  * Application Controller

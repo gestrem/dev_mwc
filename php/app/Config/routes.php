@@ -35,6 +35,12 @@
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
+
+//REST
+Router::mapResources('vins');
+Router::parseExtensions();
+
+    Router::connect('/rest/vins',array('controller'=>'rest_vins','action'=>'index'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
