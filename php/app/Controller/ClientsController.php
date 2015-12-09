@@ -6,6 +6,7 @@
  * Time: 14:03
  */
 App::uses('Model','Client');
+App::uses('HttpSocket', 'Network/Http');
 
 class ClientsController extends AppController{
 
@@ -13,6 +14,16 @@ class ClientsController extends AppController{
         $clients=$this->Client->find('all');
         $this->set('clients',$clients);
         $this->set('title_for_layout', 'Administration clients');
+
+        $this->Http = new HttpSocket();
+        $json = $this->Http->get(
+            'http://api.fixer.io/latest');
+        var_dump($json['body']);
+        $decoded=(array) json_decode($json['body']);
+        var_dump($decoded);
+        var_dump($decoded['rates']);
+        var_dump($decoded['base']);
+
     }
 
     public function edit($id = null)
@@ -53,6 +64,14 @@ class ClientsController extends AppController{
             }
         }
     }
+
+    public function view($id) {
+        $this->loadModel('Consultation');
+        $consultations = $this->Consultation->findByClientId('all');
+        $this->set('consultations',$consultations);
+        var_dump($consultations);
+    }
+
     public function delete($id) {
         if($this->Client->delete($id)) {
             $this->redirect('/clients');

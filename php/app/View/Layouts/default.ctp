@@ -43,10 +43,11 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		</div>
 		<div id="content">
 
-            <a href="/php/clients">Clients</a>
-            <a href="/php/origines">Origines</a>
-            <a href="/php/cepages">Cepages</a>
-            <a href="/php/prices">Prix</a>
+            <a href="/clients">Clients</a>
+            <a href="/origines">Origines</a>
+            <a href="/cepages">Cepages</a>
+            <a href="/prices">Prix</a>
+            <a href="/consultations">Consultations Globales</a>
 
             <?php echo $this->Session->flash(); ?>
 

@@ -17,8 +17,6 @@ class PricesController extends AppController {
         $cepages=$this->Cepage->find('all');
         $origines=$this->Origine->find('all');
         $vins=$this->Vin->find('all');
-        var_dump($vins);
-
         $this->set('vins',$vins);
         $this->set('origines',$origines);
         $this->set('cepages',$cepages);
@@ -29,6 +27,7 @@ class PricesController extends AppController {
                 $this->set('vins',$vins);
             }
         }
+        var_dump($vins[0]);
     }
 
     public function addvin() {
@@ -42,11 +41,20 @@ class PricesController extends AppController {
     }
 
     public function savePrices() {
-        var_dump($this->request->data);
         $this->loadModel('Vin');
         $this->loadModel('Price');
-        if($this->Vin->saveAll($this->request->data['vins'])) {
-            $this->redirect('/prices');
+        foreach($this->request->data['vins'] as $vin) {
+            $this->Price->create();
+            $now = new DateTime();
+            $vin['Vin']['Price']['vin_id']=$vin['Vin']['id'];
+            $vin['Vin']['Price']['date_price']=$now->format('Y-m-d H:i:s');// MySQL datetime format
+            $this->Price->save($vin['Vin']['Price']);
+            $id = $this->Price->id;
+            $this->Price->clear();
+            unset($vin['Vin']['Price']);
+            $vin['Vin']['price_id']=$id;
+            $this->Vin->save($vin['Vin']);
         }
+        $this->redirect('/prices');
     }
 }

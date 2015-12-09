@@ -35,13 +35,14 @@
 <?php foreach($vins as $vin) {
     echo "<tr>";
     echo "<input type='hidden' name='data[vins][".$i."][Vin][id]'value=" . $vin['Vin']['id'] . "></input>";
+    echo "<input type='hidden' name='data[vins][".$i."][Vin][Price][devise]'value=" . $vin['Origine']['devise'] . "></input>";
     echo "<td>" . $vin['Origine']['label'] . "</td>";
     echo "<td>" . $vin['Cepage']['label'] . "</td>";
     echo "<td>";
-    echo "<input name='data[vins][".$i."][Vin][Price][down]'value=" . $vin['Price']['down'] . "></input>";
+    echo "<input name='data[vins][".$i."][Vin][Price][down]'value=" . $vin['Price']['down'] . "></input>".$vin['Origine']['devise'];
     echo "</td>";
     echo "<td>";
-    echo "<input name='data[vins][".$i."][Vin][Price][up]'value=" . $vin['Price']['up'] . "></input>";
+    echo "<input name='data[vins][".$i."][Vin][Price][up]'value=" . $vin['Price']['up'] . "></input>".$vin['Origine']['devise'];
     echo "</td>";?>
 
     <td>

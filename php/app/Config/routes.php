@@ -34,7 +34,10 @@
     Router::connect('/client/add',array('controller'=> 'clients','action'=>'add'));
     Router::connect('/client/:id/disable',array('controller'=> 'clients','action'=>'disable'),array('pass' => array('id'),'id' => '[0-9]+'));
     Router::connect('/client/:id/delete',array('controller'=> 'clients','action'=>'delete'),array('pass' => array('id'),'id' => '[0-9]+'));
+    Router::connect('/client/:id/view',array('controller'=> 'clients','action'=>'view'),array('pass' => array('id'),'id' => '[0-9]+'));
 
+//consultations
+    Router::connect('/consultations',array('controller'=> 'consultations','action'=>'index'));
 //Cepages
     Router::connect('/cepages',array('controller'=> 'cepages','action'=>'index'));
     Router::connect('/cepage/edit/:id',array('controller'=> 'cepages','action'=>'edit'),array('pass' => array('id'),'id' => '[0-9]+'));
@@ -61,6 +64,9 @@ Router::mapResources('vins');
 Router::parseExtensions();
 
     Router::connect('/rest/vins',array('controller'=>'rest_vins','action'=>'index'));
+    Router::connect('/rest/consultation',array('controller'=>'rest_consultations','action'=>'consult'));
+    Router::connect('/rest/cepages',array('controller'=>'rest_cepages','action'=>'index'));
+    Router::connect('/rest/origines',array('controller'=>'rest_origines','action'=>'index'));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
