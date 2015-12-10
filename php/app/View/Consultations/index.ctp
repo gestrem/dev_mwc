@@ -3,19 +3,27 @@
     <tr>
         <td>Client</td>
         <td>Date</td>
+        <td>Type</td>
         <td>Objet</td>
     </tr>
 <?
 
 /* Display the list of data for the current page supplied by the controller */
 
-$data = $this->getVar('data');
 foreach ($data as $item) {
     echo '<tr>';
 
-    echo '<td>' . $item['Client']['nom'] ." ".$item['Client']['prenom'].'</td>';
+    echo "<td><a href='/client/".$item['Client']['id']."/view'>" . $item['Client']['nom'] ." ".$item['Client']['prenom'].'</a></td>';
     echo '<td>' . $item['Consultation']['date'] . '</td>';
-    /*echo '<td>' . $item['Cepage']['label'].$item['Origine']['label']. '</td>';*/
+    if ($item['Consultation']['is_detail']==1) {
+        echo '<td>Detail</td>';
+    } else {
+        echo '<td>Recherche</td>';
+    }
+    echo '<td>';
+    echo ($item['Cepage']['label']!= null) ? $item['Cepage']['label'].' ' : '';
+    echo ($item['Origine']['label']!= null) ? $item['Origine']['label'] : '';
+    echo '</td>';
     echo '</tr>';
 
 }

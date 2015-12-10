@@ -10,6 +10,9 @@ App::uses('HttpSocket', 'Network/Http');
 
 class ClientsController extends AppController{
 
+    public $components = array('Paginator');
+
+
     public function index() {
         $clients=$this->Client->find('all');
         $this->set('clients',$clients);
@@ -67,9 +70,20 @@ class ClientsController extends AppController{
 
     public function view($id) {
         $this->loadModel('Consultation');
-        $consultations = $this->Consultation->findByClientId('all');
-        $this->set('consultations',$consultations);
-        var_dump($consultations);
+
+        $paginate = array(
+            'fields' => array('Consultation.id', 'Consultation.date,Cepage.label,Origine.label,Consultation.is_detail'),
+            'limit' => 20,
+            'recursive'=>2,
+            'conditions' => array('Client.id' =>$id ),
+            'order' => array(
+                'Consultation.date' => 'desc'
+            )
+        );
+
+        $this->Paginator->settings = $paginate;
+        $data = $this->Paginator->paginate('Consultation');
+        $this->set('data', $data);
     }
 
     public function delete($id) {

@@ -10,7 +10,7 @@
 
 <?php
 foreach ($clients as $client){
-    echo "<tr><td>".$client['Client']['nom']."</td><td>".$client['Client']['prenom']."</td><td>".$client['Client']['login']."</td><td>".$client['Client']['societe']."</td><td>".$client['Client']['pays']."</td>";
+    echo "<tr><td>".$client['Client']['nom']."</td><td>".$client['Client']['prenom']."</td><td><a href='/client/".$client['Client']['id']."/view'>".$client['Client']['login']."</a></td><td>".$client['Client']['societe']."</td><td>".$client['Client']['pays']."</td>";
     echo "<td>";
     if($client['Client']['etat']==0) {
         echo "<a href='client/".$client['Client']['id']."/disable'>";

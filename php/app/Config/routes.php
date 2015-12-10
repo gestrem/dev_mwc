@@ -67,6 +67,7 @@ Router::parseExtensions();
     Router::connect('/rest/consultation',array('controller'=>'rest_consultations','action'=>'consult'));
     Router::connect('/rest/cepages',array('controller'=>'rest_cepages','action'=>'index'));
     Router::connect('/rest/origines',array('controller'=>'rest_origines','action'=>'index'));
+    Router::connect('/rest/rates/:base/:symbols/rates',array('controller'=>'rest_rates','action'=>'index'),array('pass' => array('base','symbols')));
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

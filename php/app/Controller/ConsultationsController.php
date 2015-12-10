@@ -9,8 +9,8 @@ class ConsultationsController extends AppController{
     public $components = array('Paginator');
 
     public $paginate = array(
-        'fields' => array('Consultation.id', 'Consultation.date,Client.nom,Client.prenom,Cepage.label,Origine.label'),
-        'limit' => 10,
+        'fields' => array('Consultation.id', 'Consultation.date,Client.nom,Client.prenom,Client.id,Cepage.label,Origine.label,Consultation.is_detail'),
+        'limit' => 25,
         'recursive'=>2,
         'order' => array(
             'Consultation.date' => 'desc'
@@ -19,10 +19,8 @@ class ConsultationsController extends AppController{
 
     public function index() {
         $this->Paginator->settings = $this->paginate;
-
         $data = $this->Paginator->paginate('Consultation');
         $this->set('data', $data);
-        var_dump($data);
     }
 
 }
