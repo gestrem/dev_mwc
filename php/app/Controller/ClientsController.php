@@ -18,14 +18,14 @@ class ClientsController extends AppController{
         $this->set('clients',$clients);
         $this->set('title_for_layout', 'Administration clients');
 
-        $this->Http = new HttpSocket();
+       /* $this->Http = new HttpSocket();
         $json = $this->Http->get(
             'http://api.fixer.io/latest');
         var_dump($json['body']);
         $decoded=(array) json_decode($json['body']);
         var_dump($decoded);
         var_dump($decoded['rates']);
-        var_dump($decoded['base']);
+        var_dump($decoded['base']);*/
 
     }
 
@@ -97,6 +97,37 @@ class ClientsController extends AppController{
         $client["Client"]["etat"]=!$client["Client"]["etat"];
         if($this->Client->save($client)) {
             $this->redirect('/clients');
+        }
+    }
+
+    public function validateEmail($token) {
+        if($token!=null && $token!=0)  {
+            $this->loadModel('Client');
+            if($client=$this->Client->findByTokenInsc($token)) {
+                $client['Client']['etat']=1;
+                $client['Client']['token_insc']=0;
+                if($this->Client->save($client['Client'])) {
+                }
+            }
+        }
+    }
+
+    public function reinitializePassword($token) {
+        $this->loadModel('Client');
+        if ($token==null || $token==0) {
+            $this->Session->setFlash("Erreur impossible de trouver ");
+        } elseif (!($client=$this->Client->findByTokenPassword($token))) {
+            $this->Session->setFlash("Erreur impossible de trouver ");
+        } else {
+            $this->set('print',1);
+            var_dump($client);
+            if ($this->request->is('post') && $this->request->data['pass1']==$this->request->data['pass2']) {
+                $client['Client']['password']=$this->request->data['pass1'];
+                $client['Client']['token_password']=null;
+                if($this->Client->save($client)) {
+                    $this->Session->setFlash("New password saved");
+                }
+            }
         }
     }
 }

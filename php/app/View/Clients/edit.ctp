@@ -7,5 +7,9 @@
     echo $this->Form->input('password',array('name'=>"data[pass2]"));
     echo $this->Form->input('societe', array('name'=>"data[Client][societe]" ,'value' => $client['Client']['societe']));
     echo $this->Form->input('email', array('name'=>"data[Client][email]" ,'value' => $client['Client']['email']));
+$devises = array('USD' => 'USD', 'EUR' => 'EUR', 'ZAR' => 'ZAR');
+echo $this->Form->input('Devise', array('name'=>"data[Client][devise_favorite]",'options' => $devises, 'default' => $client['Client']['devise_favorite']));
+$unites = array('L' => 'Litre', 'G' => 'Gallon');
+echo $this->Form->input('Unite', array('name'=>"data[Client][unite]",'options' => $unites, 'default' => $client['Client']['unite']));
 ?>
 <?php echo $this->Form->end('Sauvegarder'); ?>

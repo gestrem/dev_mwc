@@ -11,5 +11,12 @@ class RestController extends AppController {
     public $helpers = array('Html', 'Form');
     public $components = array('RequestHandler');
 
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        if($this->RequestHandler->ext == '') {
+            $this->RequestHandler->ext = 'json';
+        };
+    }
 }
 ?>

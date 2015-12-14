@@ -10,11 +10,11 @@ App::import('Controller', 'Rest');
 
 
 class RestRatesController extends RestController {
-    public function index($base,$symbols) {
+    public function index($base) {
 
         $this->Http = new HttpSocket();
         $json = $this->Http->get(
-            'http://api.fixer.io/latest?base='.$base.'&symbols='.$symbols);
+            'http://api.fixer.io/latest?base='.$base);
         $this->set(array(
             'rates' => (array) json_decode($json['body']),
             '_serialize' => array('rates')

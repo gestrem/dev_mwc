@@ -25,7 +25,7 @@ include(dirname(dirname(dirname(dirname(__FILE__)))) . DS . 'libs' . DS . 'opens
 
 // Set the default keys to use
 $_default_keys = array(
-    'Security.salt'       => 'mySalt',
+    'Security.salt'       => 'ws5sdef25468dd4',
     'Security.cipherSeed' => 'mySe'
 );
 

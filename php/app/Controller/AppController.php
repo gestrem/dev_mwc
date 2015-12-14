@@ -21,7 +21,6 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
-App::build(array('Controller' => array('php/app/Controller/Rest/RestVinsController')));
 
 /**
  * Application Controller
@@ -36,5 +35,5 @@ class AppController extends Controller {
 	/**
 	 * Add in the DebugKit toolbar
 	 */
-	public $components = array('DebugKit.Toolbar');
+	public $components = array('DebugKit.Toolbar','Session');
 }

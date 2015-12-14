@@ -14,9 +14,11 @@ class RestVinsController extends RestController{
 
     public function index() {
         $vins = $this->Vin->find('all',array('recursive'=>0));
+        $devise='CZK';
         $this->set(array(
+            'devise'=>$devise,
             'vins' => $vins,
-            '_serialize' => array('vins')
+            '_serialize' => array('devise','vins')
         ));
     }
 }

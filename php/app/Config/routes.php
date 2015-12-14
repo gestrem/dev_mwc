@@ -35,6 +35,8 @@
     Router::connect('/client/:id/disable',array('controller'=> 'clients','action'=>'disable'),array('pass' => array('id'),'id' => '[0-9]+'));
     Router::connect('/client/:id/delete',array('controller'=> 'clients','action'=>'delete'),array('pass' => array('id'),'id' => '[0-9]+'));
     Router::connect('/client/:id/view',array('controller'=> 'clients','action'=>'view'),array('pass' => array('id'),'id' => '[0-9]+'));
+    Router::connect('/client/validate/:token',array('controller'=>'clients','action'=>'validateEmail'),array('pass' => array('token')));
+    Router::connect('/client/newpassword/:token',array('controller'=>'clients','action'=>'reinitializePassword'),array('pass' => array('token')));
 
 //consultations
     Router::connect('/consultations',array('controller'=> 'consultations','action'=>'index'));
@@ -60,14 +62,18 @@
 
 
 //REST
-Router::mapResources('vins');
 Router::parseExtensions();
 
     Router::connect('/rest/vins',array('controller'=>'rest_vins','action'=>'index'));
     Router::connect('/rest/consultation',array('controller'=>'rest_consultations','action'=>'consult'));
     Router::connect('/rest/cepages',array('controller'=>'rest_cepages','action'=>'index'));
     Router::connect('/rest/origines',array('controller'=>'rest_origines','action'=>'index'));
-    Router::connect('/rest/rates/:base/:symbols/rates',array('controller'=>'rest_rates','action'=>'index'),array('pass' => array('base','symbols')));
+    Router::connect('/rest/rates/:base/rates',array('controller'=>'rest_rates','action'=>'index'),array('pass' => array('base')));
+    Router::connect('/rest/consultations',array('controller'=>'rest_consultations','action'=>'consult'));
+    Router::connect('/rest/client/signUp',array('controller'=>'rest_clients','action'=>'signUp'));
+    Router::connect('/rest/client/:id/changepswd',array('controller'=>'rest_clients','action'=>'changePassword'),array('pass' => array('id')));
+    Router::connect('/rest/client/:id/forgottenpassword',array('controller'=>'rest_clients','action'=>'forgottenPassword'),array('pass' => array('id')));
+
 /**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
