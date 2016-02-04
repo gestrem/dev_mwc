@@ -37,6 +37,8 @@
     Router::connect('/client/:id/view',array('controller'=> 'clients','action'=>'view'),array('pass' => array('id'),'id' => '[0-9]+'));
     Router::connect('/client/validate/:token',array('controller'=>'clients','action'=>'validateEmail'),array('pass' => array('token')));
     Router::connect('/client/newpassword/:token',array('controller'=>'clients','action'=>'reinitializePassword'),array('pass' => array('token')));
+    Router::connect('/client/signUp/:id',array('controller'=>'clients','action'=>'inscription'),array('pass' => array('id')));
+    Router::connect('/client/signUp',array('controller'=>'clients','action'=>'inscription'));
 
 //consultations
     Router::connect('/consultations',array('controller'=> 'consultations','action'=>'index'));
@@ -55,6 +57,11 @@
 //Prix
     Router::connect('/prix',array('controller'=> 'prices','action'=>'index'));
 
+//Vins
+    Router::connect('/vin/:id/delete',array('controller'=> 'prices','action'=>'deleteVin'),array('pass' => array('id'),'id' => '[0-9]+'));
+
+
+
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */
@@ -64,15 +71,19 @@
 //REST
 Router::parseExtensions();
 
-    Router::connect('/rest/vins',array('controller'=>'rest_vins','action'=>'index'));
+    Router::connect('/rest/:login/:token/vins',array('controller'=>'rest_vins','action'=>'index'),array('pass' => array('login','token')));
+    Router::connect('/rest/vins',array('controller'=>'rest_vins','action'=>'indexbis'));
     Router::connect('/rest/consultation',array('controller'=>'rest_consultations','action'=>'consult'));
     Router::connect('/rest/cepages',array('controller'=>'rest_cepages','action'=>'index'));
     Router::connect('/rest/origines',array('controller'=>'rest_origines','action'=>'index'));
     Router::connect('/rest/rates/:base/rates',array('controller'=>'rest_rates','action'=>'index'),array('pass' => array('base')));
     Router::connect('/rest/consultations',array('controller'=>'rest_consultations','action'=>'consult'));
     Router::connect('/rest/client/signUp',array('controller'=>'rest_clients','action'=>'signUp'));
+    Router::connect('/rest/client/signIn',array('controller'=>'rest_clients','action'=>'singIn'));
     Router::connect('/rest/client/:id/changepswd',array('controller'=>'rest_clients','action'=>'changePassword'),array('pass' => array('id')));
-    Router::connect('/rest/client/:id/forgottenpassword',array('controller'=>'rest_clients','action'=>'forgottenPassword'),array('pass' => array('id')));
+    Router::connect('/rest/client/:login/:token/:unit/unit',array('controller'=>'rest_clients','action'=>'changeUnit'),array('pass' => array('login','token','unit')));
+    Router::connect('/rest/client/:login/:token/:currency/currency',array('controller'=>'rest_clients','action'=>'changeCurrency'),array('pass' => array('login','token','currency')));
+    Router::connect('/rest/client/:email/forgottenpassword',array('controller'=>'rest_clients','action'=>'forgottenPassword'),array('pass' => array('email')));
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

@@ -14,3 +14,4 @@ echo $this->Form->input('societe', array('name'=>"data[Client][societe]"));
 echo $this->Form->input('email', array('name'=>"data[Client][email]"));
 ?>
 <?php echo $this->Form->end('Sauvegarder'); ?>
+

@@ -1,3 +1,8 @@
+<?php echo $this->Form->create(); ?>
+<?php
+echo $this->Form->input('Recherche', array('name'=>"data[recherche]"));?>
+<?php echo $this->Form->end('Rechercher'); ?>
+
 <table>
     <tr>
         <td>Nom </td>
@@ -10,7 +15,7 @@
 
 <?php
 foreach ($clients as $client){
-    echo "<tr><td>".$client['Client']['nom']."</td><td>".$client['Client']['prenom']."</td><td><a href='/client/".$client['Client']['id']."/view'>".$client['Client']['login']."</a></td><td>".$client['Client']['societe']."</td><td>".$client['Client']['pays']."</td>";
+    echo "<tr ><td>".$client['Client']['nom']."</td><td>".$client['Client']['prenom']."</td><td><a href='/client/".$client['Client']['id']."/view'>".$client['Client']['login']."</a></td><td>".$client['Client']['societe']."</td><td>".$client['Client']['pays']."</td>";
     echo "<td>";
     if($client['Client']['etat']==0) {
         echo "<a href='client/".$client['Client']['id']."/disable'>";
@@ -28,3 +33,6 @@ foreach ($clients as $client){
 ?>
 </table>
 <a href='client/add'><button>Ajouter un client</button></a>
+
+        </div>
+    </div>

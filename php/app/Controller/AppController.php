@@ -35,5 +35,20 @@ class AppController extends Controller {
 	/**
 	 * Add in the DebugKit toolbar
 	 */
-	public $components = array('DebugKit.Toolbar','Session');
+    public $components = array(
+        'DebugKit.Toolbar',
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'clients', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home')
+        )
+    );
+
+    public $loggedIn = false;
+
+    public function beforeFilter() {
+        $this->Auth->allow('login','inscription');
+        $this->set('loggedIn', $this->Auth->loggedIn());
+
+    }
 }

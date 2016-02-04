@@ -21,28 +21,40 @@ class PricesController extends AppController {
         $this->set('origines',$origines);
         $this->set('cepages',$cepages);
 
-        if($this->request->is('post')) {
+        /*if($this->request->is('post')) {
             if($this->request->data['selectedOrigine'] || $this->request->data['selectedCepage']) {
                 $vins=$this->Vin->findAllByOrigineIdOrCepageId($this->request->data['selectedOrigine'],$this->request->data['selectedCepage']);
                 $this->set('vins',$vins);
             }
-        }
-        var_dump($vins[0]);
+        }*/
     }
 
     public function addvin() {
         if($this->request->is('post')) {
             $this->loadModel('Vin');
+            $this->loadModel('Comment');
             $vin=$this->request->data['Vin'];
             if($this->Vin->save($vin)) {
+                $comment= array();
+                $comment['Comment']['vin_id']=$this->Vin->id;
+                $comment['Comment']['commentaire']='';
+                $this->Comment->save($comment);
                 $this->redirect('/prices');
             }
         }
     }
 
+    public function deleteVin($id) {
+        $this->loadModel('Vin');
+        $this->Vin->delete($id);
+        $this->redirect('/prices');
+
+    }
+
     public function savePrices() {
         $this->loadModel('Vin');
         $this->loadModel('Price');
+        $this->loadModel('Comment');
         foreach($this->request->data['vins'] as $vin) {
             $this->Price->create();
             $now = new DateTime();
@@ -53,6 +65,17 @@ class PricesController extends AppController {
             $this->Price->clear();
             unset($vin['Vin']['Price']);
             $vin['Vin']['price_id']=$id;
+
+            if($comment=$this->Comment->findByVinId($vin['Vin']['id'])) {
+                $comment['Comment']['commentaire']=$vin['Vin']['Comment']['commentaire'];
+                $this->Comment->save($comment);
+
+            } else {
+                $comment['Comment']['vin_id']=$vin['Vin']['id'];
+                $comment['Comment']['commentaire']=$vin['Vin']['Comment']['commentaire'];
+                $this->Comment->save($comment);
+
+            }
             $this->Vin->save($vin['Vin']);
         }
         $this->redirect('/prices');
