@@ -31,7 +31,7 @@ if (Configure::read('debug') > 0):
 	Debugger::checkSecurityKeys();
 endif;
 ?>
-<h1>Bonjour Monsieur Murphy</h1>
+<h1>Bonjour Monsieur Murphy !</h1>
 <?php
 if (file_exists(WWW_ROOT . 'css' . DS . 'cake.generic.css')):
 ?>
